@@ -1,0 +1,2 @@
+The preferred way to use CMake is to do an out-of-source build:
+On the top level create a new directory (e.g., build), cd into it, then type cmake .. and make to build the project. Run the tests with ctest or ctest -V.
