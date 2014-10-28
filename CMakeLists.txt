@@ -10,12 +10,12 @@ project (${PROJECT_NAME} CXX)
 set (PROJECT_LIB_NAME SampleProjectLib)
 set (PROJECT_TEST_NAME SampleProjectTest)
 
-set (CMAKE_CXX_FLAGS "-Wall -ggdb -Wno-deprecated -std=c++11")
+set (CMAKE_CXX_FLAGS "-Wall -ggdb -Wno-deprecated -std=c++11 -pthread")
 
 ### Library build options
 ##############################################################################
 
-include_directories (${CMAKE_SOURCE_DIR}/include/)
+include_directories (${CMAKE_SOURCE_DIR}/include)
 # add all cpp-files to the shared library
 file (GLOB LIB_SRC_FILES ${CMAKE_SOURCE_DIR}/src/*.cpp)
 add_library (${PROJECT_LIB_NAME} SHARED ${LIB_SRC_FILES})
@@ -61,6 +61,7 @@ ExternalProject_Add(
 
 # Specify the gtest include dir.
 ExternalProject_Get_Property (gtest SOURCE_DIR)
+include_directories (${CMAKE_SOURCE_DIR}/include)
 include_directories (${SOURCE_DIR}/include)
 
 file (GLOB TEST_SRC_FILES ${CMAKE_SOURCE_DIR}/test/*.cpp)
@@ -73,9 +74,9 @@ target_link_libraries (
 	# link with the shared library this project provides
 	${PROJECT_LIB_NAME}
 	# link with gtest
-	${BINARY_DIR}/libgtest.a
 	${BINARY_DIR}/libgtest_main.a
-	pthread)
+	${BINARY_DIR}/libgtest.a)
 
 add_test (NAME ${PROJECT_TEST_NAME} COMMAND ${PROJECT_TEST_NAME})
+add_test (NAME SimpleQueueTest COMMAND ${PROJECT_TEST_NAME})
 enable_testing ()
