@@ -10,7 +10,14 @@ project (${PROJECT_NAME} CXX)
 set (PROJECT_LIB_NAME SampleProjectLib)
 set (PROJECT_TEST_NAME SampleProjectTest)
 
-set (CMAKE_CXX_FLAGS "-Wall -ggdb -Wno-deprecated -std=c++11 -pthread")
+set (CMAKE_CXX_FLAGS
+	"${CMAKE_CXX_FLAGS} -Wall -ggdb -Wno-deprecated -std=c++11 -pthread")
+
+# project version number.
+set(VERSION_MAJOR   0   CACHE STRING "Project major version number.")
+set(VERSION_MINOR   0   CACHE STRING "Project minor version number.")
+set(VERSION_PATCH   1   CACHE STRING "Project patch version number.")
+mark_as_advanced(VERSION_MAJOR VERSION_MINOR VERSION_PATCH)
 
 ### Library build options
 ##############################################################################
@@ -80,3 +87,8 @@ target_link_libraries (
 add_test (NAME ${PROJECT_TEST_NAME} COMMAND ${PROJECT_TEST_NAME})
 add_test (NAME SimpleQueueTest COMMAND ${PROJECT_TEST_NAME})
 enable_testing ()
+
+### Add Doxygen build target
+##############################################################################
+
+add_subdirectory (doc)
