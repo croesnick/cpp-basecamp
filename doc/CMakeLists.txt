@@ -18,6 +18,8 @@ if (BUILD_DOCUMENTATION)
 		message (FATAL_ERROR "Doxygen is needed to build the documentation.")
 	endif()
 
+	# Tell Doxygen whether dot could be found or not via
+	# HAVE_DOT = @DOXYGEN_HAVE_DOT@ in Doxyfile.in
 	if (GRAPHVIZ_FOUND)
 		set (DOXYGEN_HAVE_DOT "YES")
 	else  ()
